@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Includio — Inclusive Studio</title>
+<meta name="description" content="AI-powered inclusive recruitment. Employers configure, candidates practice, HR reviews evidence." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ============ LANDING ============ -->
+<div class="view" id="view-landing" data-app="landing">
+  <header class="nav">
+    <div class="wrap nav-in">
+      <a class="brand" data-go="landing">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="13" stroke="currentColor" stroke-width="3"/><path d="M16 6v20" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+        </span>
+        <span class="brand-name">Includio</span>
+      </a>
+      <nav class="nav-links">
+        <a data-go="landing">How it works</a>
+        <a data-go="employer-dashboard">Employer</a>
+        <a data-go="candidate-dashboard">Candidate</a>
+      </nav>
+      <button class="btn btn-primary" data-go="login">Open the demo</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">B2B inclusive hiring platform</span>
+        <h1>Inclusive hiring starts with an interview everyone can <em>actually do</em>.</h1>
+        <p class="lede">Includio pairs a structured, AI-assisted interview builder for HR with a private practice studio for candidates — so a different way of communicating is never mistaken for a lack of ability.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary btn-lg" data-go="login">Explore the employer flow</button>
+          <button class="btn btn-ghost btn-lg" data-go="candidate-dashboard">See the candidate side</button>
+        </div>
+        <p class="fineprint">Demo only — AI, recording and calendar features are simulated.</p>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-card">
+          <span class="hero-card-label">Software Engineering Intern</span>
+          <div class="hc-row"><span class="dot dot-coral"></span> Interview plan ready</div>
+          <div class="hc-row"><span class="dot dot-sky"></span> 14-day practice window</div>
+          <div class="hc-row"><span class="dot dot-lav"></span> 7 of 7 questions complete</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="flow">
+    <div class="wrap">
+      <div class="flow-head">
+        <span class="eyebrow">The product, end to end</span>
+        <h2>Five connected steps — not a black-box AI screen.</h2>
+      </div>
+      <ol class="flow-steps">
+        <li><span class="step-n">01</span><b>Employer configures</b><p>Job description, competencies, practice quota and interview settings.</p></li>
+        <li><span class="step-n">02</span><b>AI proposes a plan</b><p>Questions, competency coverage and timing — all editable by HR.</p></li>
+        <li><span class="step-n">03</span><b>Candidate practices</b><p>A private studio inside a structured, employer-set window.</p></li>
+        <li><span class="step-n">04</span><b>Candidate interviews</b><p>The approved format, with agreed accommodations applied.</p></li>
+        <li><span class="step-n">05</span><b>HR reviews evidence</b><p>Transcript, timeline and competency excerpts for a human decision.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="principle">
+    <div class="wrap principle-in">
+      <h2>What Includio refuses to do</h2>
+      <ul class="principle-list">
+        <li>No behavioural scoring from eye contact, tone or speech speed.</li>
+        <li>No practice history shared with HR unless the candidate shares it.</li>
+        <li>No AI hiring decision, and no automatic candidate ranking.</li>
+        <li>No penalty for needing more time to think.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="wrap foot-in">
+      <span class="brand-name">Includio</span>
+      <span>Inclusive Studio — product demo</span>
+      <button class="btn btn-ghost" data-go="login">Open the demo</button>
+    </div>
+  </footer>
+</div>
+
+<!-- ============ EMPLOYER WORKSPACE ============ -->
+<div class="view" id="view-employer" data-app="employer" hidden>
+  <aside class="sidebar">
+    <a class="brand" data-go="employer-dashboard">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="13" stroke="currentColor" stroke-width="3"/><path d="M16 6v20" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+      </span>
+      <span class="brand-name">Includio</span>
+    </a>
+    <div class="ws-label">Employer workspace</div>
+    <nav class="side-nav" id="employer-nav">
+      <button data-go="employer-dashboard"><span class="ic">◧</span>Dashboard</button>
+      <button data-go="employer-campaigns"><span class="ic">▤</span>Hiring campaigns</button>
+      <button data-go="employer-library"><span class="ic">❑</span>Question library</button>
+      <button data-go="employer-reports"><span class="ic">◫</span>Interview reports</button>
+      <button data-go="employer-settings"><span class="ic">⚙</span>Settings</button>
+    </nav>
+    <div class="side-foot">
+      <div class="org">
+        <span class="avatar">NM</span>
+        <div><b>Northwind Labs</b><small>Sarah Chen · HR Lead</small></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="role-switch" role="group" aria-label="Switch workspace">
+        <button class="on" data-app-switch="employer">Employer</button>
+        <button data-app-switch="candidate">Candidate</button>
+      </div>
+      <button class="icon-btn" data-toast="You have 2 new candidate acceptances" aria-label="Notifications">🔔</button>
+    </div>
+
+    <!-- SCREEN 01 — Login -->
+    <section class="screen" id="screen-login" hidden>
+      <div class="login-wrap">
+        <div class="login-card">
+          <span class="eyebrow">Employer sign in</span>
+          <h1>Welcome back</h1>
+          <p class="sub">Sign in to configure inclusive interview experiences.</p>
+          <label class="field"><span>Work email</span><input type="email" value="sarah.chen@northwindlabs.com"></label>
+          <label class="field"><span>Password</span><input type="password" value="demo-password"></label>
+          <div class="login-row">
+            <label class="check"><input type="checkbox" checked><span>Remember me</span></label>
+            <a class="link" data-toast="A reset link would be emailed to you">Forgot password?</a>
+          </div>
+          <button class="btn btn-primary btn-block" data-go="employer-dashboard">Sign in</button>
+          <button class="btn btn-outline btn-block" data-toast="Google SSO is not connected in this demo">Continue with Google</button>
+          <p class="fineprint center">Not an admin? <a class="link" data-toast="Contact your organisation administrator">Contact your administrator</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 02 — Dashboard -->
+    <section class="screen" id="screen-employer-dashboard" hidden>
+      <div class="page-head">
+        <div>
+          <span class="eyebrow">Northwind Labs</span>
+          <h1>Good morning, Sarah</h1>
+          <p class="sub">Three campaigns are active across two departments.</p>
+        </div>
+        <button class="btn btn-primary" data-go="employer-wizard" data-wizard-step="1">Create hiring campaign</button>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat"><b>3</b><span>Active campaigns</span><small>2 closing this month</small></div>
+        <div class="stat"><b>48</b><span>Invited candidates</span><small>12 accepted today</small></div>
+        <div class="stat"><b>9</b><span>Upcoming interviews</span><small>Next: today, 14:30</small></div>
+        <div class="stat stat-accent"><b>4</b><span>Awaiting review</span><small>Reports ready</small></div>
+      </div>
+
+      <div class="two-col">
+        <div class="panel">
+          <div class="panel-head"><h2>Active hiring campaigns</h2><button class="link" data-go="employer-campaigns">View all</button></div>
+          <div class="camp-list">
+            <button class="camp" data-go="employer-wizard" data-wizard-step="3">
+              <div><b>Software Engineering Intern</b><small>Engineering · 18 candidates</small></div>
+              <div class="camp-meta"><span class="mono">14-day practice</span><span class="badge badge-progress">Practice in progress</span></div>
+            </button>
+            <button class="camp" data-go="employer-wizard" data-wizard-step="3">
+              <div><b>Graduate Business Analyst</b><small>Strategy · 22 candidates</small></div>
+              <div class="camp-meta"><span class="mono">10-day practice</span><span class="badge badge-sched">Interviews scheduled</span></div>
+            </button>
+            <button class="camp" data-go="employer-wizard" data-wizard-step="3">
+              <div><b>Product Design Associate</b><small>Design · 8 candidates</small></div>
+              <div class="camp-meta"><span class="mono">14-day practice</span><span class="badge badge-draft">Configuring</span></div>
+            </button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h2>Upcoming interviews</h2></div>
+          <div class="up-list">
+            <div class="up"><span class="avatar sm">AR</span><div><b>Amara Reyes</b><small>Software Engineering Intern</small></div><span class="mono">Today 14:30</span></div>
+            <div class="up"><span class="avatar sm">JT</span><div><b>Jonah Tan</b><small>Business Analyst</small></div><span class="mono">Today 16:00</span></div>
+            <div class="up"><span class="avatar sm">LK</span><div><b>Lena Kováč</b><small>Product Design Associate</small></div><span class="mono">Thu 09:00</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>Recent activity</h2><span class="pill pill-soft">Practice contents stay private</span></div>
+        <ul class="activity">
+          <li><span class="dot dot-sky"></span><b>Amara Reyes</b> accepted the invitation <span class="mono">12m ago</span></li>
+          <li><span class="dot dot-lav"></span><b>Jonah Tan</b> completed a practice session <span class="mono">1h ago</span></li>
+          <li><span class="dot dot-coral"></span>Interview completed — report ready for review <span class="mono">3h ago</span></li>
+          <li><span class="dot dot-sky"></span><b>Lena Kováč</b> accepted the invitation <span class="mono">Yesterday</span></li>
+        </ul>
+        <p class="hint">Activity shows participation events only. Practice answers and scores are never shown here.</p>
+      </div>
+    </section>
+
+    <!-- SCREEN 03 — Campaigns -->
+    <section class="screen" id="screen-employer-campaigns" hidden>
+      <div class="page-head">
+        <div>
+          <span class="eyebrow">Campaigns</span>
+          <h1>Hiring campaigns</h1>
+          <p class="sub">Create and manage inclusive interview experiences.</p>
+        </div>
+        <button class="btn btn-primary" data-go="employer-wizard" data-wizard-step="1">Create campaign</button>
+      </div>
+
+      <div class="toolbar">
+        <input class="search" id="camp-search" placeholder="Search by job title…">
+        <select id="camp-status"><option value="">All statuses</option><option>Draft</option><option>Configuring</option><option>Inviting candidates</option><option>Practice in progress</option><option>Interviews scheduled</option><option>Completed</option></select>
+        <select><option>All departments</option><option>Engineering</option><option>Strategy</option><option>Design</option></select>
+      </div>
+
+      <div class="panel panel-flush">
+        <table class="table">
+          <thead><tr><th>Campaign</th><th>Candidates</th><th>Practice period</th><th>Interview</th><th>Status</th><th></th></tr></thead>
+          <tbody id="camp-body">
+            <tr data-status="Practice in progress"><td><b>Software Engineering Intern</b><small>Engineering</small></td><td class="mono">18</td><td class="mono">14 days</td><td class="mono">Jun 24</td><td><span class="badge badge-progress">Practice in progress</span></td><td><button class="link" data-go="employer-wizard" data-wizard-step="3">Open</button></td></tr>
+            <tr data-status="Interviews scheduled"><td><b>Graduate Business Analyst</b><small>Strategy</small></td><td class="mono">22</td><td class="mono">10 days</td><td class="mono">Jun 18</td><td><span class="badge badge-sched">Interviews scheduled</span></td><td><button class="link" data-go="employer-wizard" data-wizard-step="3">Open</button></td></tr>
+            <tr data-status="Configuring"><td><b>Product Design Associate</b><small>Design</small></td><td class="mono">8</td><td class="mono">14 days</td><td class="mono">Jun 30</td><td><span class="badge badge-draft">Configuring</span></td><td><button class="link" data-go="employer-wizard" data-wizard-step="1">Open</button></td></tr>
+            <tr data-status="Inviting candidates"><td><b>Data Science Intern</b><small>Engineering</small></td><td class="mono">12</td><td class="mono">14 days</td><td class="mono">Jul 04</td><td><span class="badge badge-invite">Inviting candidates</span></td><td><button class="link" data-go="employer-invitations">Open</button></td></tr>
+            <tr data-status="Completed"><td><b>Marketing Associate</b><small>Growth</small></td><td class="mono">15</td><td class="mono">7 days</td><td class="mono">May 28</td><td><span class="badge badge-done">Completed</span></td><td><button class="link" data-go="employer-reports">Reports</button></td></tr>
+          </tbody>
+        </table>
+        <p class="empty" id="camp-empty" hidden>No campaigns match those filters. <button class="link" id="camp-clear">Clear filters</button></p>
+      </div>
+    </section>
+
+    <!-- SCREEN 04 — Setup Wizard -->
+    <section class="screen" id="screen-employer-wizard" hidden>
+      <div class="page-head">
+        <div>
+          <span class="eyebrow">New campaign</span>
+          <h1>Create hiring campaign</h1>
+          <p class="sub">Job details → Practice access → Interview builder → Preview &amp; publish.</p>
+        </div>
+        <button class="btn btn-ghost" data-toast="Draft saved">Save draft</button>
+      </div>
+
+      <ol class="wizard-bar" id="wizard-bar">
+        <li data-step="1"><span>1</span>Job details</li>
+        <li data-step="2"><span>2</span>Practice access</li>
+        <li data-step="3"><span>3</span>Interview builder</li>
+        <li data-step="4"><span>4</span>Preview &amp; publish</li>
+      </ol>
+
+      <!-- Step 1 -->
+      <div class="wizard-step" data-step="1">
+        <div class="two-col wide-left">
+          <div class="panel">
+            <h2>Job details</h2>
+            <div class="form-grid">
+              <label class="field"><span>Campaign name</span><input value="Software Engineering Intern — Summer 2026"></label>
+              <label class="field"><span>Job title</span><input value="Software Engineering Intern"></label>
+              <label class="field"><span>Department</span><input value="Engineering"></label>
+              <label class="field"><span>Interview language</span><select><option>English</option><option>Vietnamese</option><option>Spanish</option></select></label>
+              <label class="field span2"><span>Job description</span><textarea rows="5">We're looking for a curious intern to join our platform team. You'll pair with engineers on real features, write tests, and review code. We value clear thinking over speed, and we're happy to adjust how we work together.</textarea></label>
+              <label class="field span2"><span>Competency criteria</span><input value="Problem-solving · Collaboration · Communication · Learning agility"></label>
+              <label class="field"><span>Target candidates</span><input type="number" value="20"></label>
+              <label class="field"><span>Upload JD</span><input type="file"></label>
+            </div>
+            <div class="wizard-actions">
+              <button class="btn btn-primary" data-wizard-next="2">Continue to practice access</button>
+            </div>
+          </div>
+          <aside class="panel panel-note">
+            <h3>Why this matters</h3>
+            <p>Competency criteria are what the AI will map questions against. Keeping them specific and job-related makes the report easier to trust.</p>
+            <p class="hint">You can edit anything after the AI drafts a plan.</p>
+          </aside>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="wizard-step" data-step="2" hidden>
+        <div class="two-col wide-left">
+          <div class="panel">
+            <h2>Practice access</h2>
+            <p class="sub">Set a structured preparation window before the interview.</p>
+
+            <div class="timeline">
+              <div class="tl-bar"><span class="tl-fill"></span></div>
+              <div class="tl-labels"><span>Practice opens · Jun 10</span><span>Interview · Jun 24</span></div>
+              <p class="tl-caption">14 days of preparation before the interview.</p>
+            </div>
+
+            <div class="form-grid">
+              <label class="field"><span>Practice start</span><input type="date" value="2026-06-10"></label>
+              <label class="field"><span>Practice end</span><input type="date" value="2026-06-23"></label>
+              <label class="field"><span>Interview date</span><input type="date" value="2026-06-24"></label>
+              <label class="field"><span>Sessions per day</span><input type="number" id="q-sessions" value="3"></label>
+              <label class="field"><span>Questions per session</span><input type="number" id="q-questions" value="5"></label>
+            </div>
+
+            <div class="quota-note">
+              <b>Maximum allowance: <span id="quota-total">42</span> sessions</b>
+              <p>These are upper limits, not daily targets. Nothing here counts against a candidate, and using fewer sessions carries no disadvantage.</p>
+            </div>
+
+            <h3 class="mini-head">Practice content</h3>
+            <div class="chips">
+              <label class="chip-check"><input type="checkbox" checked><span>Personalised from JD &amp; resume</span></label>
+              <label class="chip-check"><input type="checkbox" checked><span>Company question library</span></label>
+              <label class="chip-check"><input type="checkbox"><span>Candidate uploads own resume</span></label>
+            </div>
+
+            <h3 class="mini-head">Candidate privacy</h3>
+            <div class="chips">
+              <label class="chip-check"><input type="radio" name="priv" checked><span>Show participation only</span></label>
+              <label class="chip-check"><input type="radio" name="priv"><span>Show session count, not content</span></label>
+              <label class="chip-check"><input type="radio" name="priv"><span>Hide all practice data</span></label>
+            </div>
+            <p class="hint">Default: practice answers stay private. HR is never shown practice content unless a candidate shares it.</p>
+
+            <div class="wizard-actions">
+              <button class="btn btn-ghost" data-wizard-next="1">Back</button>
+              <button class="btn btn-primary" data-wizard-next="3">Continue to interview builder</button>
+            </div>
+          </div>
+          <aside class="panel panel-note">
+            <h3>Quota as a frame, not a target</h3>
+            <p>The quota gives a clear preparation shape. Practising more never creates an advantage in the evaluation step.</p>
+          </aside>
+        </div>
+      </div>
+
+      <!-- Step 3 — Interview builder -->
+      <div class="wizard-step" data-step="3" hidden>
+        <div class="builder">
+          <aside class="builder-col">
+            <div class="panel-head"><h3>Interview sections</h3></div>
+            <ul class="section-list" id="section-list">
+              <li class="on"><b>Introduction</b><span class="mono">1 q · 3 min</span></li>
+              <li><b>Behavioural</b><span class="mono">3 q · 12 min</span></li>
+              <li><b>Technical</b><span class="mono">2 q · 12 min</span></li>
+              <li><b>Closing</b><span class="mono">1 q · 3 min</span></li>
+            </ul>
+            <div class="builder-total"><span>Total</span><b class="mono">30 min · 7 questions</b></div>
+          </aside>
+
+          <div class="builder-main">
+            <div class="panel-head">
+              <h3>Question editor</h3>
+              <button class="btn btn-soft" id="generate-btn">✦ Generate interview plan</button>
+            </div>
+
+            <div id="ai-status" class="ai-status" hidden>
+              <span class="spinner"></span> Reading JD, competencies and your questions…
+            </div>
+
+            <div id="question-list" class="q-list"></div>
+
+            <div class="add-q">
+              <input id="new-q" placeholder="Add a question of your own…">
+              <button class="btn btn-outline" id="add-q-btn">Add question</button>
+            </div>
+          </div>
+
+          <aside class="builder-col">
+            <div class="panel-head"><h3>AI interview planner</h3></div>
+            <div class="ai-card">
+              <p class="ai-line"><b>Coverage</b> — 4 of 4 competencies covered.</p>
+              <div class="coverage">
+                <div><span>Problem-solving</span><i style="--w:90%"></i></div>
+                <div><span>Collaboration</span><i style="--w:72%"></i></div>
+                <div><span>Communication</span><i style="--w:65%"></i></div>
+                <div><span>Learning agility</span><i style="--w:48%"></i></div>
+              </div>
+              <p class="ai-line"><b>Timing</b> — Introduction 3 · Behavioural 12 · Technical 12 · Closing 3.</p>
+              <p class="ai-line"><b>Gap</b> — Learning agility is thinly covered. Consider one more question.</p>
+            </div>
+            <h3 class="mini-head">Follow-up policy</h3>
+            <div class="chips col">
+              <label class="chip-check"><input type="radio" name="fu"><span>No follow-ups</span></label>
+              <label class="chip-check"><input type="radio" name="fu" checked><span>AI follow-ups within approved boundaries</span></label>
+              <label class="chip-check"><input type="radio" name="fu"><span>Predefined follow-ups only</span></label>
+            </div>
+            <p class="hint">Follow-ups stay tied to the approved question and job criteria. Nothing is published without your approval.</p>
+            <div class="builder-actions">
+              <button class="btn btn-ghost" data-toast="Draft saved">Save draft</button>
+              <button class="btn btn-primary" data-wizard-next="4">Preview interview</button>
+            </div>
+          </aside>
+        </div>
+      </div>
+
+      <!-- Step 4 — Preview & publish -->
+      <div class="wizard-step" data-step="4" hidden>
+        <div class="two-col wide-left">
+          <div class="panel">
+            <h2>Candidate preview</h2>
+            <p class="sub">This is exactly what the candidate will experience.</p>
+            <div class="preview-room">
+              <div class="ai-orb" aria-hidden="true"></div>
+              <div class="preview-q">
+                <span class="q-tag">Question 1 of 7 · Introduction</span>
+                <p>Tell us a little about yourself and what drew you to this role.</p>
+                <div class="preview-timer mono">Thinking time · 20s</div>
+              </div>
+            </div>
+            <div class="preview-nav">
+              <button class="btn btn-ghost sm" id="prev-q">← Previous</button>
+              <span class="mono" id="preview-count">1 / 7</span>
+              <button class="btn btn-ghost sm" id="next-q">Next →</button>
+            </div>
+          </div>
+
+          <aside class="panel">
+            <h3>Configuration summary</h3>
+            <dl class="summary">
+              <div><dt>Duration</dt><dd class="mono">30 minutes</dd></div>
+              <div><dt>Questions</dt><dd class="mono">7</dd></div>
+              <div><dt>Language</dt><dd>English</dd></div>
+              <div><dt>Response format</dt><dd>Voice or text</dd></div>
+              <div><dt>Thinking time</dt><dd class="mono">20 seconds</dd></div>
+              <div><dt>Recording</dt><dd>Audio + transcript, with consent</dd></div>
+              <div><dt>Accessibility</dt><dd>Candidate-requested, applied consistently</dd></div>
+            </dl>
+            <div class="notice">
+              <b>Recording notice</b>
+              <p>Recording never starts before the candidate has been told what is recorded and who can access it.</p>
+            </div>
+            <div class="wizard-actions">
+              <button class="btn btn-ghost" data-wizard-next="3">Back to edit</button>
+              <button class="btn btn-primary" data-modal="confirm-plan">Confirm interview plan</button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 05 — Invitations -->
+    <section class="screen" id="screen-employer-invitations" hidden>
+      <div class="page-head">
+        <div>
+          <span class="eyebrow">Software Engineering Intern</span>
+          <h1>Invitations &amp; scheduling</h1>
+          <p class="sub">Candidates who pass CV screening receive an Includio account and a practice window.</p>
+        </div>
+        <button class="btn btn-primary" data-modal="send-invites">Send invitations</button>
+      </div>
+
+      <div class="two-col wide-left">
+        <div class="panel">
+          <div class="panel-head"><h2>Candidates</h2><label class="btn btn-outline sm">Upload CSV<input type="file" hidden></label></div>
+          <table class="table">
+            <thead><tr><th>Candidate</th><th>Application</th><th>Invitation</th><th>Practice</th><th>Interview</th></tr></thead>
+            <tbody>
+              <tr><td><b>Amara Reyes</b><small>amara.reyes@mail.com</small></td><td><span class="badge badge-done">Passed CV</span></td><td><span class="badge badge-done">Accepted</span></td><td><span class="badge badge-progress">Active</span></td><td class="mono">Jun 24, 14:30</td></tr>
+              <tr><td><b>Jonah Tan</b><small>jonah.tan@mail.com</small></td><td><span class="badge badge-done">Passed CV</span></td><td><span class="badge badge-done">Accepted</span></td><td><span class="badge badge-progress">Active</span></td><td class="mono">Jun 24, 16:00</td></tr>
+              <tr><td><b>Lena Kováč</b><small>lena.kovac@mail.com</small></td><td><span class="badge badge-done">Passed CV</span></td><td><span class="badge badge-invite">Sent</span></td><td><span class="badge badge-draft">Not started</span></td><td class="mono">Jun 25, 09:00</td></tr>
+              <tr><td><b>Diego Fernández</b><small>diego.f@mail.com</small></td><td><span class="badge badge-done">Passed CV</span></td><td><span class="badge badge-draft">Not sent</span></td><td><span class="badge badge-draft">—</span></td><td class="mono">—</td></tr>
+            </tbody>
+          </table>
+          <div class="add-cand">
+            <input id="cand-email" placeholder="Add candidate email, comma-separated for bulk…">
+            <button class="btn btn-outline" id="add-cand-btn">Add</button>
+          </div>
+        </div>
+
+        <aside class="panel">
+          <h3>Scheduling</h3>
+          <div class="form-grid one">
+            <label class="field"><span>Interview date</span><input type="date" value="2026-06-24"></label>
+            <label class="field"><span>Start time</span><input type="time" value="14:30"></label>
+            <label class="field"><span>Time zone</span><select><option>GMT+7 — Ho Chi Minh</option><option>GMT+0 — London</option><option>GMT-8 — Los Angeles</option></select></label>
+            <label class="field"><span>Invitation deadline</span><input type="date" value="2026-06-12"></label>
+          </div>
+          <h3 class="mini-head">Invitation preview</h3>
+          <div class="invite-preview">
+            <p class="ip-subject">You're invited to interview — Software Engineering Intern</p>
+            <p>Hi Amara, Northwind Labs would like to invite you to prepare for your upcoming interview with Includio.</p>
+            <ul>
+              <li>Interview: <b class="mono">Jun 24, 14:30 (GMT+7)</b></li>
+              <li>Practice access: <b class="mono">Jun 10 – Jun 23</b></li>
+              <li>Daily allowance: <b class="mono">3 sessions · 5 questions</b></li>
+            </ul>
+            <p class="fineprint">Your practice sessions are private. You can request accessibility adjustments at any point.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SCREEN 06 — Reports -->
+    <section class="screen" id="screen-employer-reports" hidden>
+      <div class="page-head">
+        <div>
+          <span class="eyebrow">Reports</span>
+          <h1>Interview reports</h1>
+          <p class="sub">Review interview sessions and job-related evidence.</p>
+        </div>
+      </div>
+      <div class="toolbar">
+        <input class="search" id="rep-search" placeholder="Search candidate…">
+        <select id="rep-status"><option value="">All statuses</option><option>Processing</option><option>Ready for review</option><option>Reviewed</option></select>
+      </div>
+      <div class="panel panel-flush">
+        <table class="table">
+          <thead><tr><th>Candidate</th><th>Job title</th><th>Date</th><th>Duration</th><th>Questions</th><th>Status</th><th></th></tr></thead>
+          <tbody id="rep-body">
+            <tr data-status="Ready for review"><td><b>Amara Reyes</b></td><td>Software Engineering Intern</td><td class="mono">Jun 18</td><td class="mono">28:42</td><td class="mono">7 / 7</td><td><span class="badge badge-invite">Ready for review</span></td><td><button class="link" data-go="employer-report">Open report</button></td></tr>
+            <tr data-status="Processing"><td><b>Jonah Tan</b></td><td>Business Analyst</td><td class="mono">Jun 17</td><td class="mono">31:10</td><td class="mono">7 / 7</td><td><span class="badge badge-draft">Processing</span></td><td><button class="link" data-toast="Transcript is still processing">Open report</button></td></tr>
+            <tr data-status="Reviewed"><td><b>Lena Kováč</b></td><td>Product Design Associate</td><td class="mono">Jun 15</td><td class="mono">26:05</td><td class="mono">6 / 7</td><td><span class="badge badge-done">Reviewed</span></td><td><button class="link" data-go="employer-report">Open report</button></td></tr>
+          </tbody>
+        </table>
+        <p class="empty" id="rep-empty" hidden>No reports match those filters.</p>
+      </div>
+    </section>
+
+    <!-- SCREEN 07 — Individual report -->
+    <section class="screen" id="screen-employer-report" hidden>
+      <div class="page-head">
+        <div>
+          <span class="eyebrow">Software Engineering Intern · Northwind Labs</span>
+          <h1>Amara Reyes</h1>
+          <p class="sub">Interviewed Jun 18, 2026 · 28:42 · 7 of 7 questions complete</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn btn-ghost" data-toast="Report downloaded (demo)">Download</button>
+          <button class="btn btn-primary" id="mark-reviewed">Mark as reviewed</button>
+        </div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat"><b class="mono">28:42</b><span>Total duration</span></div>
+        <div class="stat"><b class="mono">7 / 7</b><span>Questions completed</span></div>
+        <div class="stat"><b>Audio + transcript</b><span>Recording status</span></div>
+        <div class="stat"><b class="mono">4</b><span>Competencies evidenced</span></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>Response timeline</h2><span class="pill pill-soft">Descriptive metrics only</span></div>
+        <table class="table">
+          <thead><tr><th>#</th><th>Question</th><th>Allowed</th><th>Before response</th><th>Response length</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">Q1</td><td>Introduction</td><td class="mono">3:00</td><td class="mono">2:10</td><td class="mono">1:32</td></tr>
+            <tr><td class="mono">Q2</td><td>Teamwork</td><td class="mono">4:00</td><td class="mono">4:30</td><td class="mono">3:45</td></tr>
+            <tr><td class="mono">Q3</td><td>Problem-solving</td><td class="mono">4:00</td><td class="mono">5:00</td><td class="mono">4:12</td></tr>
+            <tr><td class="mono">Q4</td><td>Technical</td><td class="mono">6:00</td><td class="mono">6:00</td><td class="mono">5:18</td></tr>
+            <tr><td class="mono">Q5</td><td>Technical</td><td class="mono">4:00</td><td class="mono">4:30</td><td class="mono">3:50</td></tr>
+          </tbody>
+        </table>
+        <p class="hint">Longer answers are not better answers. Thinking time and speech pace are recorded as context, never as a measure of ability.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>Transcript</h2><button class="link" data-toast="Exporting transcript (demo)">Export transcript</button></div>
+        <div class="transcript">
+          <div class="tr-row"><span class="q-tag">Q3 · Problem-solving</span><p class="tr-q">Tell us about a time you handled a challenging situation in a team project.</p><div class="tr-a"><span class="who">Candidate</span><p>In my last group project our data pipeline kept breaking the night before review. I suggested we split it: one person wrote a fallback, two of us traced the failing step. We shipped and I documented what went wrong so the next team wouldn't hit it.</p></div><div class="tr-comp"><span class="badge badge-soft">Collaboration</span><span class="badge badge-soft">Problem-solving</span></div></div>
+          <div class="tr-row"><span class="q-tag">Q4 · Technical</span><p class="tr-q">How would you approach debugging a request that is slow only for some users?</p><div class="tr-a"><span class="who">Candidate</span><p>First I'd reproduce it with the affected conditions, then compare timings across a normal and a slow request. I'd look at whether it's data volume, a specific query, or a network path — I usually check the slowest span before guessing.</p></div><div class="tr-comp"><span class="badge badge-soft">Problem-solving</span></div></div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="panel">
+          <div class="panel-head"><h2>Competency evidence</h2><span class="pill pill-soft">AI summary, HR decides</span></div>
+          <div class="comp">
+            <b>Collaboration</b>
+            <p class="quote">"I suggested we split it: one person wrote a fallback, two of us traced the failing step."</p>
+            <p class="hint">Candidate statement. Evidence of proposing a division of work under pressure.</p>
+          </div>
+          <div class="comp">
+            <b>Problem-solving</b>
+            <p class="quote">"I'd look at whether it's data volume, a specific query, or a network path."</p>
+            <p class="hint">Candidate statement. Evidence of a structured diagnostic approach.</p>
+          </div>
+          <p class="hint">AI surfaces excerpts only. It does not score candidates or recommend a decision.</p>
+        </div>
+        <div class="panel">
+          <h3>HR notes</h3>
+          <textarea id="hr-notes" rows="6" placeholder="Add private notes…"></textarea>
+          <p class="fineprint">Private to your organisation. Candidates never see HR notes.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN — Question Library -->
+    <section class="screen" id="screen-employer-library" hidden>
+      <div class="page-head">
+        <div><span class="eyebrow">Library</span><h1>Question library</h1><p class="sub">Reusable questions by competency and type.</p></div>
+        <button class="btn btn-primary" data-toast="New question draft created">New question</button>
+      </div>
+      <div class="library">
+        <div class="lib"><span class="badge badge-soft">Behavioural</span><b>Tell me about a time you disagreed with a teammate.</b><small class="mono">Collaboration · 3 min</small></div>
+        <div class="lib"><span class="badge badge-soft">Technical</span><b>How would you test a function you didn't write?</b><small class="mono">Problem-solving · 5 min</small></div>
+        <div class="lib"><span class="badge badge-soft">Situational</span><b>A deadline moves forward by two days. What do you do first?</b><small class="mono">Learning agility · 4 min</small></div>
+        <div class="lib"><span class="badge badge-soft">Communication</span><b>Explain a technical idea to someone non-technical.</b><small class="mono">Communication · 4 min</small></div>
+        <div class="lib"><span class="badge badge-soft">Behavioural</span><b>Describe a moment you had to learn something quickly.</b><small class="mono">Learning agility · 3 min</small></div>
+        <div class="lib"><span class="badge badge-soft">Technical</span><b>Walk through how you'd debug a slow page load.</b><small class="mono">Problem-solving · 5 min</small></div>
+      </div>
+    </section>
+
+    <!-- SCREEN — Settings -->
+    <section class="screen" id="screen-employer-settings" hidden>
+      <div class="page-head"><div><span class="eyebrow">Organisation</span><h1>Settings</h1><p class="sub">Northwind Labs · 6 team members</p></div></div>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Default interview settings</h3>
+          <div class="form-grid one">
+            <label class="field"><span>Default language</span><select><option>English</option><option>Vietnamese</option></select></label>
+            <label class="field"><span>Default duration</span><select><option>30 minutes</option><option>45 minutes</option></select></label>
+            <label class="field"><span>Default thinking time</span><select><option>20 seconds</option><option>40 seconds</option></select></label>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Privacy &amp; retention</h3>
+          <div class="chips col">
+            <label class="chip-check"><input type="checkbox" checked><span>Recording requires explicit consent</span></label>
+            <label class="chip-check"><input type="checkbox" checked><span>Practice data hidden from HR by default</span></label>
+            <label class="chip-check"><input type="checkbox" checked><span>Auto-delete recordings after 90 days</span></label>
+            <label class="chip-check"><input type="checkbox"><span>Allow anonymous candidate feedback</span></label>
+          </div>
+          <p class="hint">These settings apply to every new campaign unless changed during setup.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ============ CANDIDATE WORKSPACE ============ -->
+<div class="view" id="view-candidate" data-app="candidate" hidden>
+  <header class="topnav">
+    <div class="wrap topnav-in">
+      <a class="brand" data-go="candidate-dashboard">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="13" stroke="currentColor" stroke-width="3"/><path d="M16 6v20" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+        </span>
+        <span class="brand-name">Includio</span>
+      </a>
+      <nav class="cand-nav" id="cand-nav">
+        <button data-go="candidate-dashboard">My interviews</button>
+        <button data-go="candidate-practice-setup">Practice studio</button>
+        <button data-go="candidate-dashboard">Schedule</button>
+        <button data-go="candidate-account">My account</button>
+      </nav>
+      <div class="role-switch sm" role="group" aria-label="Switch workspace">
+        <button data-app-switch="employer">Employer</button>
+        <button class="on" data-app-switch="candidate">Candidate</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap cand-main">
+
+    <!-- SCREEN 08 — Activation -->
+    <section class="screen" id="screen-candidate-activation" hidden>
+      <div class="activate">
+        <div class="panel activate-card">
+          <span class="eyebrow">Invitation from Northwind Labs</span>
+          <h1>You've been invited to prepare for your interview with Includio</h1>
+          <p class="sub">Software Engineering Intern · interview on <b class="mono">Jun 24, 14:30 (GMT+7)</b></p>
+          <div class="mini-stats">
+            <div><b class="mono">Jun 10 – 23</b><span>Practice access</span></div>
+            <div><b class="mono">3 / day</b><span>Session allowance</span></div>
+            <div><b class="mono">5</b><span>Questions per session</span></div>
+          </div>
+          <div class="form-grid">
+            <label class="field"><span>Full name</span><input value="Amara Reyes"></label>
+            <label class="field"><span>Email</span><input value="amara.reyes@mail.com"></label>
+            <label class="field"><span>Create password</span><input type="password" value="••••••••"></label>
+            <label class="field"><span>Confirm password</span><input type="password" value="••••••••"></label>
+          </div>
+          <label class="check"><input type="checkbox" checked><span>I accept the privacy notice — my practice stays private by default.</span></label>
+          <div class="acc-note">
+            <b>Accessibility preferences</b>
+            <p>You'll set these next, and you can change them any time before the interview. No diagnosis is ever required.</p>
+          </div>
+          <button class="btn btn-primary btn-block" data-go="candidate-dashboard">Activate account</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 09 — Candidate dashboard -->
+    <section class="screen" id="screen-candidate-dashboard" hidden>
+      <div class="page-head">
+        <div><span class="eyebrow">Candidate workspace</span><h1>Welcome, Amara</h1><p class="sub">Your interview with Northwind Labs is in 6 days.</p></div>
+        <button class="btn btn-ghost" data-go="candidate-account">Accessibility preferences</button>
+      </div>
+
+      <div class="two-col wide-left">
+        <div class="panel interview-card">
+          <div class="ic-head">
+            <div><span class="eyebrow">Upcoming interview</span><h2>Software Engineering Intern</h2><p class="sub">Northwind Labs</p></div>
+            <span class="badge badge-progress">Practice access active</span>
+          </div>
+          <div class="countdown">
+            <div><b class="mono">06</b><span>days</span></div>
+            <div><b class="mono">14</b><span>hours</span></div>
+            <div><b class="mono">30</b><span>min</span></div>
+          </div>
+          <p class="sub">Scheduled <b class="mono">Jun 24, 14:30 (GMT+7)</b> · 30 minutes · voice or text</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" data-go="candidate-practice-setup">Start practising</button>
+            <button class="btn btn-ghost" data-go="candidate-device">View interview details</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Practice allowance</h3>
+          <p class="quota-line"><b id="quota-used">2</b> of <b id="quota-max">3</b> practice sessions used today</p>
+          <div class="meter"><span id="quota-meter" style="--w:66%"></span></div>
+          <p class="hint">You don't need to use every session. Practising more does not affect how you're assessed.</p>
+          <dl class="summary tight">
+            <div><dt>Questions per session</dt><dd class="mono">5</dd></div>
+            <div><dt>Access ends</dt><dd class="mono">Jun 23</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="panel">
+          <h2>Suggestions</h2>
+          <div class="suggest">
+            <button data-go="candidate-practice-setup"><b>Practice behavioural questions</b><small>Teamwork and collaboration</small></button>
+            <button data-toast="Opening your private feedback (demo)"><b>Review your private feedback</b><small>Only you can see this</small></button>
+            <button data-go="candidate-practice-setup"><b>Try a shorter session</b><small>10 minutes, 3 questions</small></button>
+          </div>
+        </div>
+        <div class="panel">
+          <h2>Before the interview</h2>
+          <ul class="checklist">
+            <li class="done"><span class="cb"></span>Review interview details</li>
+            <li><span class="cb"></span>Check microphone and camera</li>
+            <li><span class="cb"></span>Review accessibility preferences</li>
+            <li><span class="cb"></span>Explore the interview environment</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN — Practice setup -->
+    <section class="screen" id="screen-candidate-practice-setup" hidden>
+      <div class="page-head"><div><span class="eyebrow">Practice studio</span><h1>Set up your practice</h1><p class="sub">Practice at your own pace. Nothing here is shared with the employer.</p></div></div>
+
+      <div class="panel">
+        <h2>1 · Choose your content</h2>
+        <div class="choice-grid">
+          <button class="choice on" data-source="personalised"><b>Personalised practice</b><p>Questions tailored to your job description and experience.</p><small>Uses JD + your resume</small></button>
+          <button class="choice" data-source="library"><b>Question library</b><p>Choose a topic and practise at your own pace.</p><small>Behavioural, technical, problem-solving…</small></button>
+        </div>
+        <div class="upload-row" id="upload-row">
+          <label class="upload"><span>Job description</span><input type="file"><small>Provided by Northwind Labs</small></label>
+          <label class="upload"><span>Your resume</span><input type="file"><small>PDF or DOCX</small></label>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>2 · Customise your session</h2>
+        <div class="opt-grid">
+          <div class="opt"><span>Duration</span><div class="seg" data-seg="duration"><button>10 min</button><button class="on">20 min</button><button>30 min</button></div></div>
+          <div class="opt"><span>Interview type</span><div class="seg" data-seg="type"><button class="on">Mixed</button><button>Behavioural</button><button>Technical</button></div></div>
+          <div class="opt"><span>Question count</span><div class="seg" data-seg="count"><button>3</button><button class="on">5</button><button>8</button></div></div>
+          <div class="opt"><span>Response format</span><div class="seg" data-seg="format"><button class="on">Voice</button><button>Text</button></div></div>
+          <div class="opt"><span>Thinking time</span><div class="seg" data-seg="think"><button>10s</button><button class="on">20s</button><button>40s</button></div></div>
+          <div class="opt"><span>Feedback</span><div class="seg" data-seg="feedback"><button class="on">After each question</button><button>At the end</button></div></div>
+        </div>
+      </div>
+
+      <div class="panel review-bar">
+        <div><b>Session summary</b><p class="sub" id="session-summary">Personalised · 5 questions · ~20 min · voice · 20s thinking time</p></div>
+        <div class="review-right">
+          <span class="pill pill-soft">1 practice session will be used</span>
+          <button class="btn btn-primary" data-go="candidate-practice">Start practice</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 10 — Practice studio -->
+    <section class="screen" id="screen-candidate-practice" hidden>
+      <div class="room">
+        <div class="room-head">
+          <span class="eyebrow">Practice studio · private</span>
+          <div class="room-status"><span class="dot dot-lav"></span> Not recorded</div>
+        </div>
+        <div class="room-grid">
+          <div class="room-stage">
+            <div class="ai-orb" aria-hidden="true"></div>
+            <div class="q-stage">
+              <span class="q-tag" id="p-qtag">Question 1 of 5 · Behavioural</span>
+              <p class="q-text" id="p-qtext">Tell me about a time you worked with someone who had a very different working style.</p>
+              <div class="think" id="p-think"><span class="think-ring"></span> Thinking time · <b class="mono" id="p-thinkcount">20</b>s</div>
+            </div>
+            <div class="wave" id="p-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="room-controls">
+              <button class="btn btn-primary" id="p-record">Start answering</button>
+              <button class="btn btn-ghost" data-toast="Question repeated">Repeat question</button>
+              <button class="btn btn-ghost" data-toast="Question shown as text">Show as text</button>
+              <button class="btn btn-ghost" id="p-end">End session</button>
+            </div>
+          </div>
+          <aside class="room-side">
+            <div class="panel">
+              <h3>Progress</h3>
+              <div class="progress-dots" id="p-dots"></div>
+              <p class="hint">Take as long as you need on thinking time.</p>
+            </div>
+            <div class="panel" id="p-feedback" hidden>
+              <h3>Feedback</h3>
+              <div class="fb-block"><b>Key ideas</b><p id="fb-ideas"></p></div>
+              <div class="fb-block"><b>Relevant to the role</b><p id="fb-role"></p></div>
+              <div class="fb-block"><b>Try next time</b><p id="fb-try"></p></div>
+              <div class="fb-actions">
+                <button class="btn btn-outline sm" data-toast="Re-running this question">Retry question</button>
+                <button class="btn btn-primary sm" id="p-next">Next question</button>
+              </div>
+            </div>
+            <div class="panel">
+              <h3>Accessibility</h3>
+              <div class="chips col sm">
+                <label class="chip-check"><input type="checkbox" data-a11y="motion"><span>Reduce motion</span></label>
+                <label class="chip-check"><input type="checkbox" data-a11y="text"><span>Larger text</span></label>
+                <label class="chip-check"><input type="checkbox" checked><span>Captions on</span></label>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 11 — Device check -->
+    <section class="screen" id="screen-candidate-device" hidden>
+      <div class="page-head"><div><span class="eyebrow">Before your interview</span><h1>Device check &amp; waiting room</h1><p class="sub">Software Engineering Intern · Northwind Labs · Jun 24, 14:30 · 30 minutes</p></div></div>
+      <div class="two-col">
+        <div class="panel">
+          <h2>Device check</h2>
+          <ul class="device-list">
+            <li><span class="ok">✓</span> Microphone <small>Working — input detected</small></li>
+            <li><span class="ok">✓</span> Speakers <small>Working</small></li>
+            <li><span class="ok">✓</span> Camera <small>Working</small></li>
+            <li><span class="ok">✓</span> Internet connection <small>Stable</small></li>
+            <li><span class="warn">!</span> Permissions <small>Camera access requested</small></li>
+          </ul>
+          <div class="notice">
+            <b>Recording notice</b>
+            <p>This interview is <b>audio-recorded and transcribed</b> with your consent. Your recording is visible to the hiring team only. You can request transcription-only at any time.</p>
+          </div>
+        </div>
+        <div class="panel">
+          <h2>Your approved adjustments</h2>
+          <ul class="checklist plain">
+            <li>Extra thinking time (40s before each answer)</li>
+            <li>Questions shown as text as well as spoken</li>
+            <li>Break offered between sections</li>
+            <li>Gentle time warning instead of a countdown</li>
+          </ul>
+          <p class="hint">These were agreed with Northwind Labs and will apply throughout.</p>
+          <div class="hero-actions">
+            <button class="btn btn-ghost" data-toast="Support has been notified (demo)">Request support</button>
+            <button class="btn btn-primary" data-go="candidate-live">Join interview</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 12 — Live interview -->
+    <section class="screen" id="screen-candidate-live" hidden>
+      <div class="room live">
+        <div class="room-head">
+          <span class="eyebrow">Live interview · Software Engineering Intern</span>
+          <div class="room-status rec"><span class="dot dot-coral pulse"></span> Recording · transcribed</div>
+        </div>
+        <div class="room-grid">
+          <div class="room-stage tall">
+            <div class="ai-orb big" aria-hidden="true"></div>
+            <div class="q-stage">
+              <span class="q-tag" id="l-qtag">Question 1 of 7 · Introduction</span>
+              <p class="q-text" id="l-qtext">Tell us a little about yourself and what drew you to this role.</p>
+              <div class="live-timer">
+                <span>Response time</span><b class="mono" id="l-timer">03:00</b>
+              </div>
+            </div>
+            <div class="live-controls">
+              <button class="btn btn-primary" id="l-start">Start response</button>
+              <button class="btn btn-ghost" data-toast="Question repeated">Repeat question</button>
+              <button class="btn btn-ghost" data-toast="Clarification requested">Request clarification</button>
+              <button class="btn btn-ghost" data-toast="Issue reported to support (demo)">Report issue</button>
+              <button class="btn btn-ghost danger" id="l-end">End interview</button>
+            </div>
+            <p class="transcript-live" id="l-caption" aria-live="polite"></p>
+          </div>
+          <aside class="room-side">
+            <div class="panel">
+              <h3>Session</h3>
+              <dl class="summary tight">
+                <div><dt>Progress</dt><dd class="mono" id="l-progress">1 / 7</dd></div>
+                <div><dt>Language</dt><dd>English</dd></div>
+                <div><dt>Format</dt><dd>Voice or text</dd></div>
+              </dl>
+              <div class="progress-dots live" id="l-dots"></div>
+            </div>
+            <div class="panel">
+              <h3>Recording</h3>
+              <p class="hint">Audio and transcript are being captured with your consent. The hiring team sees the report; you can ask for a copy.</p>
+              <button class="btn btn-ghost sm btn-block" data-go="candidate-complete">End interview</button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 13 — Completion -->
+    <section class="screen" id="screen-candidate-complete" hidden>
+      <div class="complete">
+        <div class="panel complete-card">
+          <div class="tick" aria-hidden="true">✓</div>
+          <h1>Your interview is complete. Thank you for your time.</h1>
+          <p class="sub">Software Engineering Intern · Northwind Labs · Jun 24, 2026</p>
+          <div class="mini-stats">
+            <div><b class="mono">28:42</b><span>Duration</span></div>
+            <div><b class="mono">7 / 7</b><span>Questions</span></div>
+            <div><b>Submitted</b><span>Status</span></div>
+          </div>
+          <div class="notice">
+            <b>What happens next</b>
+            <p>The hiring team will review your interview. Northwind Labs will contact you directly with next steps. We don't show AI results because Includio never makes the hiring decision.</p>
+          </div>
+          <p class="fineprint">Questions or need support? Contact <a class="link" data-toast="Support contact shown">candidate@includio.demo</a>.</p>
+          <button class="btn btn-primary btn-block" data-go="candidate-dashboard">Return to dashboard</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN — Account / accessibility -->
+    <section class="screen" id="screen-candidate-account" hidden>
+      <div class="page-head"><div><span class="eyebrow">My account</span><h1>Accessibility preferences</h1><p class="sub">These apply to your interview and can change any time before it starts.</p></div></div>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Reading &amp; motion</h3>
+          <div class="chips col">
+            <label class="chip-check"><input type="checkbox" data-a11y="text"><span>Larger text</span></label>
+            <label class="chip-check"><input type="checkbox" data-a11y="motion"><span>Reduce motion</span></label>
+            <label class="chip-check"><input type="checkbox" checked><span>Captions</span></label>
+            <label class="chip-check"><input type="checkbox" checked><span>Questions shown as text</span></label>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Interview adjustments</h3>
+          <div class="chips col">
+            <label class="chip-check"><input type="checkbox" checked><span>Extra thinking time</span></label>
+            <label class="chip-check"><input type="checkbox" checked><span>Optional break between sections</span></label>
+            <label class="chip-check"><input type="radio" name="resp" checked><span>Voice responses</span></label>
+            <label class="chip-check"><input type="radio" name="resp"><span>Text responses</span></label>
+          </div>
+          <p class="hint">No medical diagnosis is ever required to use these settings.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ============ MODALS / TOAST ============ -->
+<div class="modal-scrim" id="scrim" hidden>
+  <div class="modal" role="dialog" aria-modal="true" id="modal">
+    <h3 id="modal-title">Confirm</h3>
+    <p id="modal-body"></p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" data-modal-cancel>Cancel</button>
+      <button class="btn btn-primary" data-modal-confirm>Confirm</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script src="script.js"></script>
+</body>
+</html>

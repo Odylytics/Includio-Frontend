@@ -1,0 +1,80 @@
+:root {
+  /* Brand — main palette */
+  --brand-red: #c1272d;
+  --brand-orange-red: #f05a24;
+  --brand-orange: #f6921e;
+  --brand-gold: #f0b624;
+  --brand-mustard: #f8d56c;
+  --brand-cream: #fbe6a6;
+
+  /* Neutrals — warm application surface */
+  --background: #fbfaf8;
+  --surface: #ffffff;
+  --text: #2a211c;
+  --text-secondary: #5a4b43;
+  --text-muted: #94867c;
+  --border: #ece7e2;
+  --border-strong: #dcd4cc;
+
+  /* Semantic mapped to brand */
+  --primary: #c1272d;
+  --primary-dark: #84171c;
+  --primary-soft: #fdeded;
+
+  --secondary: #6b4a38;
+  --secondary-soft: #f3ece6;
+
+  --accent: #f05a24;
+  --accent-soft: #fee3bf;
+
+  --success: #5c7355;
+  --success-soft: #edf1eb;
+
+  --warning: #8a6b57;
+  --warning-soft: #f3ece6;
+
+  /* Type — user brand fonts + mono for data */
+  --font-display: 'Montserrat', system-ui, sans-serif;
+  --font-accent: 'Playfair Display', Georgia, serif;
+  --font-body: 'Be Vietnam Pro', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Shape */
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  --shadow-1: 0 1px 2px rgba(42, 33, 28, 0.04);
+  --shadow-2: 0 6px 24px -14px rgba(42, 33, 28, 0.16);
+  --shadow-3: 0 20px 50px -26px rgba(42, 33, 28, 0.22);
+
+  --space: 8px;
+  --maxw: 1200px;
+  --sidebar-w: 260px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration: 0.01ms;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html.a11y-large-text {
+  font-size: 112.5%;
+}
+
+html.a11y-visual-clarity {
+  --border: #d8d0c8;
+  --border-strong: #b8aea4;
+  --text-secondary: #3f342e;
+}
