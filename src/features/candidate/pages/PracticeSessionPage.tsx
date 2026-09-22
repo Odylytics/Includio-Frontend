@@ -8,14 +8,19 @@ import {
   Mic,
   MicOff,
   PhoneOff,
+  Send,
   Sparkles,
   Volume2,
+  VolumeX,
   Video,
   VideoOff,
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
-import { AvatarFrameBackground } from '@/features/candidate/components/AvatarFrameBackground'
+import {
+  AvatarVideoBackground,
+  type AvatarVideoHandle,
+} from '@/features/candidate/components/AvatarVideoBackground'
 import { GlassButton, glassPanel } from '@/features/candidate/components/GlassUI'
 import {
   completePracticeSession,
@@ -32,14 +37,31 @@ type Phase = 'thinking' | 'answering' | 'feedback' | 'done'
 
 type TranscriptLine = {
   id: string
-  speaker: 'ai' | 'you'
+  speaker: 'employer' | 'employee'
   text: string
   time: string
 }
 
-function nowStamp() {
-  return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
-}
+const DEMO_TRANSCRIPT: TranscriptLine[] = [
+  {
+    id: 't1',
+    speaker: 'employer',
+    text: 'So finally, can you describe yourself in 3 words?',
+    time: '11:33:04 PM',
+  },
+  {
+    id: 't2',
+    speaker: 'employee',
+    text: 'focus honest and creative',
+    time: '11:33:18 PM',
+  },
+  {
+    id: 't3',
+    speaker: 'employer',
+    text: 'thank you',
+    time: '11:33:22 PM',
+  },
+]
 
 export function PracticeSessionPage() {
   const navigate = useNavigate()
@@ -58,6 +80,7 @@ export function PracticeSessionPage() {
   const [phase, setPhase] = useState<Phase>('thinking')
   const [thinkLeft, setThinkLeft] = useState(20)
   const [paused, setPaused] = useState(false)
+  const [avatarMuted, setAvatarMuted] = useState(true)
   const [answer, setAnswer] = useState('')
   const [feedback, setFeedback] = useState<PracticeFeedback | null>(null)
   const [recording, setRecording] = useState(false)
@@ -65,7 +88,10 @@ export function PracticeSessionPage() {
   const [aiNote, setAiNote] = useState(
     'Take your time. Practice answers stay private unless you choose to share them.',
   )
+  const [transcriptCycle, setTranscriptCycle] = useState(0)
+  const transcriptEndRef = useRef<HTMLDivElement>(null)
 
+  const avatarRef = useRef<AvatarVideoHandle>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const streamRef = useRef<MediaStream | null>(null)
   const [cameraOn, setCameraOn] = useState(true)
@@ -74,6 +100,32 @@ export function PracticeSessionPage() {
   const [cameraReady, setCameraReady] = useState(false)
 
   const current = questions[index]
+
+  // Each video loop (~10s): clear transcript, then reveal lines after 4s → 5s → 1s
+  useEffect(() => {
+    if (!session) return
+    setTranscript([])
+    const delaysMs = [4000, 5000, 1000]
+    const timers: number[] = []
+    let elapsed = 0
+
+    DEMO_TRANSCRIPT.forEach((line, i) => {
+      elapsed += delaysMs[i] ?? 0
+      const id = window.setTimeout(() => {
+        setTranscript((prev) => {
+          if (prev.some((p) => p.id === line.id)) return prev
+          return [...prev, line]
+        })
+      }, elapsed)
+      timers.push(id)
+    })
+
+    return () => timers.forEach((id) => window.clearTimeout(id))
+  }, [session?.id, transcriptCycle])
+
+  useEffect(() => {
+    transcriptEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [transcript.length])
 
   useEffect(() => {
     if (!session) return
@@ -124,15 +176,6 @@ export function PracticeSessionPage() {
     setAnswer('')
     setFeedback(null)
     setRecording(false)
-    setTranscript((prev) => [
-      ...prev,
-      {
-        id: `q-${current.id}-${Date.now()}`,
-        speaker: 'ai',
-        text: current.text,
-        time: nowStamp(),
-      },
-    ])
     setAiNote(`Question ${index + 1}: focus on a concrete example and what you did.`)
   }, [session, index]) // eslint-disable-line react-hooks/exhaustive-deps -- only re-run on question change
 
@@ -176,10 +219,7 @@ export function PracticeSessionPage() {
   async function submit() {
     if (!current || !session) return
     const text = answer.trim() || '(voice answer)'
-    setTranscript((prev) => [
-      ...prev,
-      { id: `a-${current.id}-${Date.now()}`, speaker: 'you', text, time: nowStamp() },
-    ])
+    // Keep transcript fixed to the demo dialogue for now
     await submitPracticeAnswer(session.id, current.id, text)
     setRecording(false)
     if (session.feedbackTiming === 'after-each') {
@@ -256,15 +296,17 @@ export function PracticeSessionPage() {
       aria-modal="true"
       aria-label="Practice interview room"
     >
-      <AvatarFrameBackground paused={paused} />
+      <AvatarVideoBackground
+        ref={avatarRef}
+        paused={paused}
+        muted={avatarMuted}
+        onMuteChange={setAvatarMuted}
+        onLoop={() => setTranscriptCycle((c) => c + 1)}
+      />
 
       {/* —— Top bar —— */}
       <header className="absolute inset-x-0 top-0 z-20 flex items-start justify-between gap-3 p-4 sm:p-5">
         <div className="flex items-center gap-2">
-          <div className={cn(glassPanel('flex items-center gap-2 rounded-full px-3 py-2'))}>
-            <img src="/blinkmark.svg" alt="" className="h-5 w-auto" aria-hidden />
-            <span className="font-brand text-[13px] font-bold tracking-tight">includio</span>
-          </div>
           <button
             type="button"
             className={cn(glassPanel('grid size-10 place-items-center rounded-full'))}
@@ -329,24 +371,26 @@ export function PracticeSessionPage() {
         </div>
         <div className="flex-1 space-y-3 overflow-y-auto px-3 py-3">
           {transcript.length === 0 ? (
-            <p className="px-1 text-[13px] text-white/55">The conversation will appear here.</p>
-          ) : (
-            transcript.map((line) => (
-              <div
-                key={line.id}
-                className={cn(
-                  'rounded-2xl px-3 py-2.5 text-[13px] leading-relaxed',
-                  line.speaker === 'ai' ? 'bg-white/10' : 'bg-[#f05a24]/25',
-                )}
-              >
-                <div className="mb-1 flex items-center justify-between gap-2 text-[10px] uppercase tracking-wide text-white/50">
-                  <span>{line.speaker === 'ai' ? 'AI interviewer' : 'You'}</span>
-                  <span className="font-mono normal-case">{line.time}</span>
-                </div>
-                {line.text}
+            <p className="px-1 text-[13px] text-white/55" aria-live="polite">
+              Waiting for conversation…
+            </p>
+          ) : null}
+          {transcript.map((line) => (
+            <div
+              key={line.id}
+              className={cn(
+                'animate-[pageIn_0.35s_ease] rounded-2xl px-3 py-2.5 text-[13px] leading-relaxed',
+                line.speaker === 'employer' ? 'bg-white/10' : 'bg-[#f05a24]/25',
+              )}
+            >
+              <div className="mb-1 flex items-center justify-between gap-2 text-[10px] uppercase tracking-wide text-white/50">
+                <span>{line.speaker === 'employer' ? 'Employer' : 'Employee'}</span>
+                <span className="font-mono normal-case">{line.time}</span>
               </div>
-            ))
-          )}
+              {line.text}
+            </div>
+          ))}
+          <div ref={transcriptEndRef} />
         </div>
         {phase === 'answering' ? (
           <div className="border-t border-white/15 p-3">
@@ -366,35 +410,19 @@ export function PracticeSessionPage() {
             </button>
           </div>
         ) : null}
-      </aside>
-
-      {/* —— Right column: PiP + candidate info —— */}
-      <div className="absolute right-4 top-24 z-20 flex w-[min(300px,calc(100vw-2rem))] flex-col gap-3 sm:right-5">
-        {/* Self camera PiP */}
-        <div className={cn(glassPanel('overflow-hidden rounded-[22px] p-1.5'))}>
-          <div className="relative aspect-video overflow-hidden rounded-[18px] bg-black/40">
-            <video
-              ref={videoRef}
-              className={cn(
-                'h-full w-full object-cover scale-x-[-1]',
-                (!cameraOn || !cameraReady) && 'invisible',
-              )}
-              playsInline
-              muted
-              autoPlay
-            />
-            {(!cameraOn || !cameraReady) && (
-              <div className="absolute inset-0 flex items-center justify-center bg-[#2a2a2e]/80 text-[12px] text-white/70">
-                {cameraError ?? 'Camera off'}
-              </div>
-            )}
-            <div className="absolute bottom-2 left-2 rounded-full bg-black/45 px-2 py-0.5 text-[10px] backdrop-blur-sm">
-              You {micOn ? '' : '· muted'}
+        <div className="border-t border-white/15 p-3">
+          <div className="flex items-start gap-2 rounded-full bg-[#f8d56c] px-3.5 py-2.5 text-[#282323]">
+            <Sparkles className="mt-0.5 size-4 shrink-0" aria-hidden />
+            <div className="min-w-0">
+              <div className="text-[10px] font-bold uppercase tracking-wide">AI practice notes</div>
+              <p className="text-[12px] leading-snug">{aiNote}</p>
             </div>
           </div>
         </div>
+      </aside>
 
-        {/* Candidate info panel */}
+      {/* —— Candidate info (mid-low right) —— */}
+      <div className="absolute bottom-[400px] right-4 z-20 w-[min(300px,calc(100vw-2rem))] sm:bottom-[420px] sm:right-5">
         <div className={cn(glassPanel('overflow-hidden'))}>
           <div className="flex items-center gap-3 border-b border-white/15 px-4 py-3">
             <div className="grid size-11 place-items-center rounded-full bg-gradient-to-br from-[#f6921e] to-[#c1272d] font-brand text-sm font-bold">
@@ -436,6 +464,32 @@ export function PracticeSessionPage() {
                 title={['Practice', 'Privacy', 'Evidence', 'Access'][i]}
               />
             ))}
+          </div>
+        </div>
+      </div>
+
+      {/* —— Self camera PiP (bottom-right corner) —— */}
+      <div className="absolute bottom-[10vh] right-4 z-30 w-[min(240px,calc(100vw-2rem))] sm:right-5">
+        <div className={cn(glassPanel('overflow-hidden rounded-[22px] p-1.5'))}>
+          <div className="relative aspect-video overflow-hidden rounded-[18px] bg-black/40">
+            <video
+              ref={videoRef}
+              className={cn(
+                'h-full w-full object-cover scale-x-[-1]',
+                (!cameraOn || !cameraReady) && 'invisible',
+              )}
+              playsInline
+              muted
+              autoPlay
+            />
+            {(!cameraOn || !cameraReady) && (
+              <div className="absolute inset-0 flex items-center justify-center bg-[#2a2a2e]/80 text-[12px] text-white/70">
+                {cameraError ?? 'Camera off'}
+              </div>
+            )}
+            <div className="absolute bottom-2 left-2 rounded-full bg-black/45 px-2 py-0.5 text-[10px] backdrop-blur-sm">
+              You {micOn ? '' : '· muted'}
+            </div>
           </div>
         </div>
       </div>
@@ -485,17 +539,6 @@ export function PracticeSessionPage() {
 
       {/* —— Bottom dock + timeline —— */}
       <div className="absolute inset-x-0 bottom-0 z-20 px-4 pb-4 sm:px-6 sm:pb-5">
-        {/* AI note */}
-        <div className="mb-3 flex justify-center">
-          <div className="flex max-w-md items-start gap-2 rounded-2xl border border-[#f0b624]/50 bg-[#f8d56c] px-3 py-2 text-[#282323] shadow-[0_8px_24px_rgba(240,182,36,0.35)]">
-            <Sparkles className="mt-0.5 size-4 shrink-0" />
-            <div>
-              <div className="text-[10px] font-bold uppercase tracking-wide">AI practice notes</div>
-              <p className="text-[12px] leading-snug">{aiNote}</p>
-            </div>
-          </div>
-        </div>
-
         {/* Control dock */}
         <div className="mb-3 flex justify-center">
           <div className={cn(glassPanel('flex items-center gap-2.5 rounded-full px-3 py-2'))}>
@@ -514,29 +557,33 @@ export function PracticeSessionPage() {
               {micOn ? <Mic className="size-5" /> : <MicOff className="size-5" />}
             </GlassButton>
             <GlassButton
-              label={
-                phase === 'answering'
-                  ? recording
-                    ? 'Submit answer'
-                    : 'Start speaking'
-                  : 'Speaker'
-              }
-              active={recording}
+              label={avatarMuted ? 'Unmute avatar sound' : 'Mute avatar sound'}
               onClick={() => {
-                if (phase !== 'answering') {
-                  toast('Audio output (demo)')
-                  return
-                }
-                if (!recording) {
-                  setRecording(true)
-                  toast('Listening… (voice simulated)')
-                } else {
-                  void submit()
-                }
+                const next = !avatarMuted
+                setAvatarMuted(next)
+                avatarRef.current?.setMuted(next)
+                toast(next ? 'Avatar sound muted' : 'Avatar sound on')
               }}
+              active={!avatarMuted}
             >
-              <Volume2 className="size-5" />
+              {avatarMuted ? <VolumeX className="size-5" /> : <Volume2 className="size-5" />}
             </GlassButton>
+            {phase === 'answering' ? (
+              <GlassButton
+                label={recording ? 'Submit answer' : 'Start speaking'}
+                active={recording}
+                onClick={() => {
+                  if (!recording) {
+                    setRecording(true)
+                    toast('Listening… (voice simulated)')
+                  } else {
+                    void submit()
+                  }
+                }}
+              >
+                <Send className="size-5" />
+              </GlassButton>
+            ) : null}
             <GlassButton label="Leave" danger onClick={() => void endAndLeave()}>
               <PhoneOff className="size-5" />
             </GlassButton>
@@ -571,7 +618,7 @@ export function PracticeSessionPage() {
               className="hover:text-white"
               onClick={() => setPaused((p) => !p)}
             >
-              {paused ? 'Resume avatar' : 'Pause avatar'}
+              {paused ? 'Resume video' : 'Pause video'}
             </button>
             <button
               type="button"
