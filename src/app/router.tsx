@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { EmployerShell } from '@/components/layout/EmployerShell'
 import { CandidateShell } from '@/components/layout/CandidateShell'
 import { LandingPage } from '@/features/shared/pages/LandingPage'
+import { StartPage } from '@/features/shared/pages/StartPage'
 import { EmployerLoginPage } from '@/features/employer/pages/EmployerLoginPage'
 import { EmployerDashboardPage } from '@/features/employer/pages/EmployerDashboardPage'
 import { EmployerCampaignsPage } from '@/features/employer/pages/EmployerCampaignsPage'
@@ -24,6 +25,7 @@ export function AppRouter() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
+      <Route path="/start" element={<StartPage />} />
       <Route path="/employer/login" element={<EmployerLoginPage />} />
 
       <Route path="/employer" element={<EmployerShell />}>

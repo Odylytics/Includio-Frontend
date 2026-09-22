@@ -12,13 +12,13 @@ export function CandidateDashboardPage() {
   return (
     <div className="space-y-6">
       <div>
-        <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-primary-dark">
+        <p className="font-brand text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
           Candidate workspace
         </p>
-        <h1 className="mt-1 text-[clamp(26px,3vw,34px)]">
+        <h1 className="mt-2 text-[clamp(28px,4vw,40px)]">
           Welcome, {candidateUser.name.split(' ')[0]}
         </h1>
-        <p className="mt-1 text-ink-secondary">Your interview with Northwind Labs is in 6 days.</p>
+        <p className="mt-2 text-ink-secondary">Your interview with Northwind Labs is in 6 days.</p>
       </div>
 
       <Card className="space-y-4">

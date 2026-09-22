@@ -19,11 +19,13 @@ export function EmployerDashboardPage() {
     <div className="mx-auto max-w-[1100px] space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-primary-dark">
+          <p className="font-brand text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
             {employerUser.org}
           </p>
-          <h1 className="mt-1 text-[clamp(26px,3vw,34px)]">Good morning, {employerUser.name.split(' ')[0]}</h1>
-          <p className="mt-1 text-ink-secondary">Three campaigns are active across two departments.</p>
+          <h1 className="mt-2 text-[clamp(28px,4vw,40px)]">
+            Good morning, {employerUser.name.split(' ')[0]}
+          </h1>
+          <p className="mt-2 text-ink-secondary">Three campaigns are active across two departments.</p>
         </div>
         <Link to="/employer/campaigns/new">
           <Button>Create hiring campaign</Button>

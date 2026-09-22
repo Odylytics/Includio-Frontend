@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { BrandLogo } from '@/components/layout/BrandLogo'
+import { Link, useNavigate } from 'react-router-dom'
+import { SiteHeader } from '@/components/layout/SiteHeader'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Card } from '@/components/ui/Card'
@@ -16,21 +16,19 @@ export function CandidateActivatePage() {
   const [confirm, setConfirm] = useState('demo-password')
 
   return (
-    <div className="grid min-h-screen place-items-center px-4 py-10">
-      <div className="w-full max-w-lg">
-        <div className="mb-6 flex justify-center">
-          <BrandLogo compact to="/" />
-        </div>
-        <Card className="space-y-4">
-          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-primary-dark">
+    <div className="min-h-screen">
+      <SiteHeader actionLabel="Start" actionTo="/start" />
+      <div className="mx-auto grid max-w-lg place-items-center px-4 py-10">
+        <Card className="w-full space-y-4">
+          <p className="font-brand text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
             Invitation from Northwind Labs
           </p>
-          <h1 className="text-[28px]">Activate your account</h1>
+          <h1 className="text-[32px]">Activate your account</h1>
           <p className="text-ink-secondary">
             Software Engineering Intern · interview on{' '}
             <b className="font-mono">Jun 24, 14:30 (GMT+7)</b>
           </p>
-          <div className="rounded-md bg-background p-3 text-[13.5px] text-ink-secondary">
+          <div className="rounded-md bg-surface-muted p-3 text-[13.5px] text-ink-secondary">
             Practice access: Jun 10–23 · Daily allowance:{' '}
             <b className="font-mono">3 sessions · 5 questions</b>
           </div>
@@ -50,11 +48,12 @@ export function CandidateActivatePage() {
             error={confirm !== password ? 'Passwords do not match' : undefined}
           />
           <p className="text-[13.5px] text-ink-muted">
-            You can customise accessibility preferences without sharing a diagnosis. Ordinary
-            settings like larger text, captions, and extra thinking time are available to everyone.
+            Customise accessibility preferences without sharing a diagnosis. Ordinary settings are
+            available to everyone.
           </p>
           <Button
             block
+            size="lg"
             onClick={() => {
               if (password !== confirm) {
                 toast('Passwords do not match', 'error')
@@ -67,6 +66,11 @@ export function CandidateActivatePage() {
           >
             Activate account
           </Button>
+          <p className="text-center text-[12.5px] text-ink-muted">
+            <Link to="/" className="font-semibold text-ink-secondary">
+              Back to landing
+            </Link>
+          </p>
         </Card>
       </div>
     </div>

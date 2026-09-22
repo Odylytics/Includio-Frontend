@@ -15,7 +15,7 @@ export function SegmentedControl({ options, value, onChange, ariaLabel, classNam
     <div
       role="group"
       aria-label={ariaLabel}
-      className={cn('inline-flex rounded-pill border border-border-strong bg-surface p-1', className)}
+      className={cn('inline-flex items-center gap-0.5', className)}
     >
       {options.map((o) => {
         const on = o.value === value
@@ -25,8 +25,8 @@ export function SegmentedControl({ options, value, onChange, ariaLabel, classNam
             type="button"
             aria-pressed={on}
             className={cn(
-              'rounded-pill px-3.5 py-1.5 text-[13.5px] font-semibold text-ink-secondary',
-              on && 'bg-primary-soft text-primary-dark',
+              'px-2 py-1.5 text-[12.5px] font-semibold text-ink-secondary transition sm:px-2.5 sm:text-[13px]',
+              on && 'text-primary',
             )}
             onClick={() => onChange(o.value)}
           >

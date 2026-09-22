@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { BrandLogo } from '@/components/layout/BrandLogo'
+import { SiteHeader } from '@/components/layout/SiteHeader'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { toast } from '@/lib/mock/mockApi'
@@ -11,16 +11,15 @@ export function EmployerLoginPage() {
   const [password, setPassword] = useState('demo-password')
 
   return (
-    <div className="grid min-h-screen place-items-center px-4 py-10">
-      <div className="w-full max-w-md">
-        <div className="mb-8 flex justify-center">
-          <BrandLogo compact />
-        </div>
-        <div className="rounded-lg border border-border bg-surface p-7 shadow-[var(--shadow-2)]">
-          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-primary-dark">
+    <div className="min-h-screen">
+      <SiteHeader actionLabel="Start" actionTo="/start" />
+
+      <div className="mx-auto grid max-w-md place-items-center px-4 py-12">
+        <div className="w-full rounded-lg border border-border bg-surface/95 p-8 shadow-[var(--shadow-2)]">
+          <p className="font-brand text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
             Employer sign in
           </p>
-          <h1 className="mt-2 text-[28px]">Welcome back</h1>
+          <h1 className="mt-2 text-[32px]">Welcome back</h1>
           <p className="mt-2 text-[15px] text-ink-secondary">
             Sign in to configure inclusive interview experiences.
           </p>
@@ -52,13 +51,13 @@ export function EmployerLoginPage() {
               </label>
               <button
                 type="button"
-                className="font-semibold text-secondary"
+                className="font-semibold text-primary"
                 onClick={() => toast('A reset link would be emailed to you')}
               >
                 Forgot password?
               </button>
             </div>
-            <Button type="submit" block>
+            <Button type="submit" block size="lg">
               Sign in
             </Button>
             <Button
@@ -70,27 +69,16 @@ export function EmployerLoginPage() {
               Continue with Google
             </Button>
           </form>
-          <p className="mt-4 text-center text-[12.5px] text-ink-muted">
-            Not an admin?{' '}
-            <button
-              type="button"
-              className="font-semibold text-secondary"
-              onClick={() => toast('Contact your organisation administrator')}
-            >
-              Contact your administrator
-            </button>
-            .
+          <p className="mt-5 text-center text-[12.5px] text-ink-muted">
+            <Link to="/candidate/activate" className="font-semibold text-ink-secondary">
+              Candidate invitation
+            </Link>
+            {' · '}
+            <Link to="/" className="font-semibold text-ink-secondary">
+              Landing
+            </Link>
           </p>
         </div>
-        <p className="mt-4 text-center text-[13px] text-ink-muted">
-          <Link to="/" className="font-semibold text-secondary">
-            Back to home
-          </Link>
-          {' · '}
-          <Link to="/candidate/activate" className="font-semibold text-secondary">
-            Candidate invitation
-          </Link>
-        </p>
       </div>
     </div>
   )

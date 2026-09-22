@@ -1,5 +1,5 @@
 :root {
-  /* Brand — main palette */
+  /* Main brand palette */
   --brand-red: #c1272d;
   --brand-orange-red: #f05a24;
   --brand-orange: #f6921e;
@@ -7,51 +7,56 @@
   --brand-mustard: #f8d56c;
   --brand-cream: #fbe6a6;
 
-  /* Neutrals — warm application surface */
-  --background: #fbfaf8;
+  /* Light-mode surfaces — warm, editorial */
+  --background: #fffaf2;
+  --background-elevated: #fff7ea;
   --surface: #ffffff;
-  --text: #2a211c;
-  --text-secondary: #5a4b43;
-  --text-muted: #94867c;
-  --border: #ece7e2;
-  --border-strong: #dcd4cc;
+  --surface-muted: #fff3dc;
+  --text: #282323;
+  --text-secondary: #5c5048;
+  --text-muted: #9a8b7e;
+  --border: #f0e4d4;
+  --border-strong: #e2d2bc;
 
-  /* Semantic mapped to brand */
   --primary: #c1272d;
   --primary-dark: #84171c;
   --primary-soft: #fdeded;
 
-  --secondary: #6b4a38;
-  --secondary-soft: #f3ece6;
+  --secondary: #282323;
+  --secondary-soft: #f5eee6;
 
   --accent: #f05a24;
-  --accent-soft: #fee3bf;
+  --accent-soft: #ffe8d8;
 
   --success: #5c7355;
   --success-soft: #edf1eb;
 
-  --warning: #8a6b57;
-  --warning-soft: #f3ece6;
+  --warning: #f6921e;
+  --warning-soft: #fff4df;
 
-  /* Type — user brand fonts + mono for data */
-  --font-display: 'Montserrat', system-ui, sans-serif;
+  /* Brand fonts:
+     Playfair = editorial display (like reference serif)
+     Montserrat = brand / UI titles
+     Be Vietnam Pro = body */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-brand: 'Montserrat', system-ui, sans-serif;
   --font-accent: 'Playfair Display', Georgia, serif;
   --font-body: 'Be Vietnam Pro', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
-  /* Shape */
-  --radius-sm: 8px;
-  --radius: 12px;
-  --radius-lg: 16px;
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 24px;
   --radius-pill: 999px;
 
-  --shadow-1: 0 1px 2px rgba(42, 33, 28, 0.04);
-  --shadow-2: 0 6px 24px -14px rgba(42, 33, 28, 0.16);
-  --shadow-3: 0 20px 50px -26px rgba(42, 33, 28, 0.22);
+  --shadow-1: 0 1px 2px rgba(40, 35, 35, 0.04);
+  --shadow-2: 0 12px 40px -20px rgba(40, 35, 35, 0.18);
+  --shadow-3: 0 28px 60px -28px rgba(40, 35, 35, 0.28);
+  --shadow-glow: 0 0 80px -20px rgba(240, 90, 36, 0.35);
 
   --space: 8px;
-  --maxw: 1200px;
-  --sidebar-w: 260px;
+  --maxw: 1120px;
+  --nav-h: 64px;
 }
 
 @media (prefers-reduced-motion: reduce) {

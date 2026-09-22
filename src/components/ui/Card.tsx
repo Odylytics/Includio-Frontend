@@ -10,8 +10,8 @@ export function Card({ children, className, padding = true }: Props) {
   return (
     <div
       className={cn(
-        'rounded-lg border border-border bg-surface shadow-[var(--shadow-1)]',
-        padding && 'p-5',
+        'rounded-lg border border-border bg-surface/90 shadow-[var(--shadow-1)] backdrop-blur-sm',
+        padding && 'p-5 sm:p-6',
         className,
       )}
     >
