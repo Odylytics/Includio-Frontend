@@ -193,4 +193,16 @@
       transform: translateY(-6px);
     }
   }
+
+  @keyframes scrollHint {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.55;
+    }
+    50% {
+      transform: translateY(6px);
+      opacity: 1;
+    }
+  }
 }

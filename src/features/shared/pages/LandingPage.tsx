@@ -1,10 +1,13 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, ChevronLeft, ChevronRight, Plus } from 'lucide-react'
+import { ArrowRight, ChevronDown, ChevronLeft, ChevronRight, Plus } from 'lucide-react'
 import { LandingHeader } from '@/components/layout/LandingHeader'
 import { HeroDitherBackground } from '@/components/effects/HeroDitherBackground'
+import FolderFloat from '@/components/effects/FolderFloat'
 import { Button } from '@/components/ui/Button'
 import { BrandLogo } from '@/components/layout/BrandLogo'
+
+const principles = ['Employer-funded', 'Evidence, not scores', 'Human oversight'] as const
 
 const pillars = [
   {
@@ -95,7 +98,7 @@ export function LandingPage() {
         <HeroDitherBackground />
         <LandingHeader />
 
-        <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-4 pb-16 pt-6 text-center">
+        <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-4 pb-24 pt-6 text-center">
           <p className="mb-4 font-brand text-[11px] font-semibold uppercase tracking-[0.22em] text-primary">
             Inclusive Studio
           </p>
@@ -111,60 +114,71 @@ export function LandingPage() {
             Inclusive hiring starts with an interview everyone can{' '}
             <em className="font-accent text-primary">actually do</em>.
           </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-10 flex justify-center">
             <Link to="/start">
-              <Button size="lg">
-                Start <ArrowRight className="size-4" />
+              <Button
+                size="lg"
+                className="min-w-[200px] px-10 py-4 text-[17px] sm:min-w-[220px] sm:px-12 sm:py-[1.15rem] sm:text-[18px]"
+              >
+                Start <ArrowRight className="size-5" />
               </Button>
             </Link>
-            <a href="#how">
-              <Button size="lg" variant="outline">
-                Explore the story
-              </Button>
-            </a>
           </div>
           <p className="mt-4 text-[12.5px] text-ink-muted">
             Demo only — AI, recording and calendar are simulated.
           </p>
         </div>
+
+        <a
+          href="#how"
+          className="absolute bottom-5 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-1.5 text-ink-muted transition hover:text-ink"
+          aria-label="Scroll to next section"
+        >
+          <span className="font-brand text-[10px] font-semibold uppercase tracking-[0.2em]">
+            Scroll
+          </span>
+          <ChevronDown className="size-5 animate-[scrollHint_1.6s_ease-in-out_infinite]" aria-hidden />
+        </a>
       </section>
 
       {/* —— PHILOSOPHY —— */}
-      <section id="how" className="mx-auto grid max-w-[var(--maxw)] gap-10 px-4 py-24 sm:px-6 lg:grid-cols-2 lg:gap-16">
-        <div>
-          <h2 className="text-[clamp(28px,4vw,42px)]">
-            Built for people — not for behavioural theatre.
-          </h2>
-          <div className="mt-8 overflow-hidden rounded-lg border border-border shadow-[var(--shadow-2)]">
-            <div className="aspect-[4/3] bg-gradient-to-br from-brand-cream via-accent-soft to-primary-soft relative">
-              <img
-                src="/favicon.svg"
-                alt=""
-                className="absolute left-1/2 top-1/2 h-28 w-auto -translate-x-1/2 -translate-y-1/2 opacity-90"
-                aria-hidden
-              />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(193,39,45,0.15),transparent_50%)]" />
-            </div>
-          </div>
+      <section id="how" className="mx-auto max-w-[var(--maxw)] px-4 py-24 sm:px-6">
+        <h2 className="mx-auto max-w-2xl text-center text-[clamp(28px,4vw,42px)]">
+          Built for people
+          <br />
+          not for behavioural theatre.
+        </h2>
+        <div className="mt-8 flex justify-center overflow-visible pt-20 pb-2">
+          <FolderFloat
+            items={[...principles]}
+            label="Includio"
+            sublabel="3 principles"
+            logoSrc="/blinkmark.svg"
+            logoAlt=""
+            trigger="hover"
+            closeOnSelect={false}
+            physics
+            drift={0.45}
+            folderColor="#282323"
+            frontColor="#3a3232"
+            paperColor="#FFFAF2"
+            itemColor="#FFFAF2"
+            itemTextColor="#282323"
+            labelColor="#FFFAF2"
+            width={220}
+            height={160}
+            radius={16}
+            spread={200}
+            lift={30}
+            tilt={7}
+            flapAngle={34}
+            restAngle={14}
+            openDuration={520}
+            stagger={50}
+            bounce={0.32}
+          />
         </div>
-        <div className="flex flex-col justify-center">
-          <p className="text-[16px] leading-relaxed text-ink-secondary">
-            Includio pairs a structured interview builder for HR with a private practice studio for
-            candidates — so a different way of communicating is never mistaken for a lack of ability.
-          </p>
-          <ul className="mt-10 space-y-5">
-            {[
-              ['Employer-funded', 'Practice access is part of the hiring process, not a paywall.'],
-              ['Evidence, not scores', 'Reports surface what was said — not eye contact or speech speed.'],
-              ['Human oversight', 'AI assists preparation and structure. People make the call.'],
-            ].map(([title, body]) => (
-              <li key={title} className="border-t border-border pt-4">
-                <div className="font-brand text-[15px] font-bold">{title}</div>
-                <p className="mt-1 text-[14px] text-ink-muted">{body}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <p className="mt-4 text-center text-[12px] text-ink-muted">Hover the folder to open the notes.</p>
       </section>
 
       {/* —— VALUE CARD —— */}
