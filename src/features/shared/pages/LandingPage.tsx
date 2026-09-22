@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ArrowRight, ChevronDown, ChevronLeft, ChevronRight, Plus } from 'lucide-react'
 import { LandingHeader } from '@/components/layout/LandingHeader'
 import { HeroDitherBackground } from '@/components/effects/HeroDitherBackground'
 import FolderFloat from '@/components/effects/FolderFloat'
 import { Button } from '@/components/ui/Button'
 import { BrandLogo } from '@/components/layout/BrandLogo'
+import { startPracticeSession, toast } from '@/lib/mock/mockApi'
+import { useMockStore } from '@/lib/mock/mockStore'
 
 const principles = ['Employer-funded', 'Evidence, not scores', 'Human oversight'] as const
 
@@ -88,9 +90,12 @@ const team = [
 ]
 
 export function LandingPage() {
+  const navigate = useNavigate()
+  const plan = useMockStore((s) => s.plans.find((p) => p.campaignId === 'camp_se_intern'))
   const [openFaq, setOpenFaq] = useState<number | null>(0)
   const [teamIndex, setTeamIndex] = useState(0)
   const [folderOpen, setFolderOpen] = useState(false)
+  const [startingPractice, setStartingPractice] = useState(false)
   const folderSectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -107,6 +112,31 @@ export function LandingPage() {
     return () => io.disconnect()
   }, [])
 
+  const openPracticeSession = async () => {
+    setStartingPractice(true)
+    try {
+      const questionIds = (plan?.questions ?? []).slice(0, 3).map((q) => q.id)
+      if (!questionIds.length) {
+        navigate('/candidate/practice/setup')
+        return
+      }
+      await startPracticeSession({
+        candidateId: 'cand_amara',
+        campaignId: 'camp_se_intern',
+        questionIds,
+        responseMode: 'voice',
+        durationMinutes: 20,
+        thinkingTimeSeconds: 30,
+        feedbackTiming: 'after_each',
+      })
+      navigate('/candidate/practice/session')
+    } catch (err) {
+      toast(err instanceof Error ? err.message : 'Could not start practice', 'error')
+    } finally {
+      setStartingPractice(false)
+    }
+  }
+
   return (
     <div className="overflow-x-hidden">
       {/* —— HERO —— */}
@@ -115,7 +145,7 @@ export function LandingPage() {
         <LandingHeader />
 
         <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-4 pb-24 pt-6 text-center">
-          <p className="mb-4 font-brand text-[11px] font-semibold uppercase tracking-[0.22em] text-primary">
+          <p className="font-brand text-[11px] font-semibold uppercase tracking-[0.22em] text-primary">
             Inclusive Studio
           </p>
           <h1 className="mx-auto w-[min(90vw,520px)]">
@@ -130,13 +160,22 @@ export function LandingPage() {
             Inclusive hiring starts with an interview everyone can{' '}
             <em className="font-accent text-primary">actually do</em>.
           </p>
-          <div className="mt-10 flex justify-center">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+            <Button
+              size="lg"
+              variant="outline"
+              disabled={startingPractice}
+              onClick={() => void openPracticeSession()}
+              className="min-w-[200px] px-10 py-4 text-[17px] sm:min-w-[220px] sm:px-12 sm:py-[1.15rem] sm:text-[18px]"
+            >
+              {startingPractice ? 'Opening…' : 'Try practice'}
+            </Button>
             <Link to="/start">
               <Button
                 size="lg"
                 className="min-w-[200px] px-10 py-4 text-[17px] sm:min-w-[220px] sm:px-12 sm:py-[1.15rem] sm:text-[18px]"
               >
-                Start <ArrowRight className="size-5" />
+                Get started <ArrowRight className="size-5" />
               </Button>
             </Link>
           </div>
