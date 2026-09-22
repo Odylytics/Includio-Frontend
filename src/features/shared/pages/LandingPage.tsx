@@ -127,7 +127,7 @@ export function LandingPage() {
         responseMode: 'voice',
         durationMinutes: 20,
         thinkingTimeSeconds: 30,
-        feedbackTiming: 'after_each',
+        feedbackTiming: 'after-each',
       })
       navigate('/candidate/practice/session')
     } catch (err) {
