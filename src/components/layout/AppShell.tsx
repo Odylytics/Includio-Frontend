@@ -24,7 +24,7 @@ export function AppShell({ workspace, navItems, children, className }: Props) {
   return (
     <div className={cn('min-h-screen', className)}>
       <SiteHeader
-        logoTo={workspace === 'employer' ? '/employer/dashboard' : '/candidate/dashboard'}
+        logoTo="/"
         actionLabel="Demo"
         onAction={() => toast('Demo prototype — AI and recording are simulated')}
         leftSlot={

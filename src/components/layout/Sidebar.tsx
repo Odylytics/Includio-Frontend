@@ -41,7 +41,7 @@ export function Sidebar({ mobileOpen, onClose }: Props) {
           mobileOpen ? 'translate-x-0' : '-translate-x-full',
         )}
       >
-        <BrandLogo to="/employer/dashboard" compact />
+        <BrandLogo to="/" compact />
         <div className="mt-5 mb-2 px-2 font-mono text-[10.5px] uppercase tracking-[0.14em] text-ink-muted">
           Employer workspace
         </div>

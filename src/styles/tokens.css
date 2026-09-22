@@ -35,12 +35,12 @@
   --warning-soft: #fff4df;
 
   /* Brand fonts:
-     Playfair = editorial display (like reference serif)
+     DM Sans = display / accent (Google Sans–like geometric sans)
      Montserrat = brand / UI titles
      Be Vietnam Pro = body */
-  --font-display: 'Playfair Display', Georgia, serif;
+  --font-display: 'DM Sans', system-ui, sans-serif;
   --font-brand: 'Montserrat', system-ui, sans-serif;
-  --font-accent: 'Playfair Display', Georgia, serif;
+  --font-accent: 'DM Sans', system-ui, sans-serif;
   --font-body: 'Be Vietnam Pro', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
