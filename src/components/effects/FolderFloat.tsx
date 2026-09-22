@@ -24,6 +24,8 @@ export interface FolderFloatProps {
   logoAlt?: string
   trigger?: FolderFloatTrigger
   defaultOpen?: boolean
+  /** Controlled open state. When set, parent drives open/close (e.g. scroll into view). */
+  open?: boolean
   closeOnSelect?: boolean
   physics?: boolean
   drift?: number
@@ -129,6 +131,7 @@ const FolderFloat: React.FC<FolderFloatProps> = ({
   logoAlt = '',
   trigger = 'hover',
   defaultOpen = false,
+  open: openProp,
   closeOnSelect = true,
   physics = true,
   drift = 0.5,
@@ -153,7 +156,9 @@ const FolderFloat: React.FC<FolderFloatProps> = ({
   bounce = 0.3,
   className = '',
 }) => {
-  const [open, setOpen] = useState(defaultOpen)
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen)
+  const controlled = openProp !== undefined
+  const open = controlled ? Boolean(openProp) : uncontrolledOpen
   const [popped, setPopped] = useState(-1)
   const [live, setLive] = useState(false)
   const [sizes, setSizes] = useState<Size[]>([])
@@ -300,13 +305,17 @@ const FolderFloat: React.FC<FolderFloatProps> = ({
   const set = useCallback(
     (next: boolean) => {
       if (!next) stopPhysics()
-      setOpen((prev) => {
+      if (controlled) {
+        if (open !== next) latest.current.onOpenChange?.(next)
+        return
+      }
+      setUncontrolledOpen((prev) => {
         if (prev === next) return prev
         latest.current.onOpenChange?.(next)
         return next
       })
     },
-    [stopPhysics],
+    [controlled, open, stopPhysics],
   )
 
   useEffect(() => {

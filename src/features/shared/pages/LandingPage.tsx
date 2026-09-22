@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, ChevronDown, ChevronLeft, ChevronRight, Plus } from 'lucide-react'
 import { LandingHeader } from '@/components/layout/LandingHeader'
@@ -90,6 +90,22 @@ const team = [
 export function LandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0)
   const [teamIndex, setTeamIndex] = useState(0)
+  const [folderOpen, setFolderOpen] = useState(false)
+  const folderSectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const el = folderSectionRef.current
+    if (!el) return
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        setFolderOpen(entry.isIntersecting)
+      },
+      { threshold: 0.4, rootMargin: '0px 0px -8% 0px' },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
 
   return (
     <div className="overflow-x-hidden">
@@ -124,9 +140,6 @@ export function LandingPage() {
               </Button>
             </Link>
           </div>
-          <p className="mt-4 text-[12.5px] text-ink-muted">
-            Demo only — AI, recording and calendar are simulated.
-          </p>
         </div>
 
         <a
@@ -141,44 +154,84 @@ export function LandingPage() {
         </a>
       </section>
 
-      {/* —— PHILOSOPHY —— */}
-      <section id="how" className="mx-auto max-w-[var(--maxw)] px-4 py-24 sm:px-6">
-        <h2 className="mx-auto max-w-2xl text-center text-[clamp(28px,4vw,42px)]">
-          Built for people
-          <br />
-          not for behavioural theatre.
-        </h2>
-        <div className="mt-8 flex justify-center overflow-visible pt-20 pb-2">
-          <FolderFloat
-            items={[...principles]}
-            label="Includio"
-            sublabel="3 principles"
-            logoSrc="/blinkmark.svg"
-            logoAlt=""
-            trigger="hover"
-            closeOnSelect={false}
-            physics
-            drift={0.45}
-            folderColor="#282323"
-            frontColor="#3a3232"
-            paperColor="#FFFAF2"
-            itemColor="#FFFAF2"
-            itemTextColor="#282323"
-            labelColor="#FFFAF2"
-            width={220}
-            height={160}
-            radius={16}
-            spread={200}
-            lift={30}
-            tilt={7}
-            flapAngle={34}
-            restAngle={14}
-            openDuration={520}
-            stagger={50}
-            bounce={0.32}
-          />
+      {/* —— PRINCIPLE + FOLDER —— */}
+      <section
+        id="how"
+        ref={folderSectionRef}
+        className="mx-auto max-w-[var(--maxw)] px-4 py-24 sm:px-6"
+      >
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-14 xl:gap-16">
+          {/* Left: testimonial */}
+          <div className="grid items-center gap-8 sm:grid-cols-[1.05fr_0.95fr] sm:gap-8">
+            <div>
+              <span className="font-display text-6xl leading-none text-primary/40" aria-hidden>
+                “
+              </span>
+              <blockquote className="mt-2 font-display text-[clamp(22px,2.6vw,32px)] font-medium leading-snug text-ink">
+                A different way of communicating is never a lack of ability.
+              </blockquote>
+              <p className="mt-6 text-[14px] text-ink-muted">— Includio product principle</p>
+            </div>
+
+            <div className="relative mx-auto aspect-[3/4] w-full max-w-[320px] overflow-hidden rounded-[28px] border border-border bg-gradient-to-b from-[#f7c9b8]/55 via-brand-cream to-[#f8e8b0]/70 shadow-[var(--shadow-2)] sm:max-w-none">
+              <img
+                src="/testimonials/principle-portrait.png"
+                alt=""
+                className="pointer-events-none absolute inset-x-0 bottom-0 top-[6%] mx-auto h-[88%] w-auto max-w-[92%] object-contain object-bottom select-none"
+                aria-hidden
+              />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[42%] bg-gradient-to-t from-[rgba(255,250,242,0.96)] via-[rgba(255,250,242,0.55)] to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 z-[1] p-4 sm:p-5">
+                <BrandLogo to={null} compact className="mb-2.5 opacity-90" />
+                <p className="font-brand text-sm font-semibold text-ink">Inclusive by design</p>
+                <p className="mt-1 text-[12.5px] text-ink-muted">
+                  No emotion scoring. No ranking. No diagnosis required.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: folder */}
+          <div className="flex flex-col items-center text-center">
+            <h2 className="max-w-md text-[clamp(26px,3.2vw,38px)]">
+              Built for people
+              <br />
+              not for behavioural theatre.
+            </h2>
+            <div className="mt-6 flex justify-center overflow-visible pt-16 pb-2">
+              <FolderFloat
+                items={[...principles]}
+                label="Includio"
+                sublabel="3 principles"
+                logoSrc="/blinkmark.svg"
+                logoAlt=""
+                trigger="click"
+                open={folderOpen}
+                onOpenChange={setFolderOpen}
+                closeOnSelect={false}
+                physics
+                drift={0.45}
+                folderColor="#282323"
+                frontColor="#3a3232"
+                paperColor="#FFFAF2"
+                itemColor="#FFFAF2"
+                itemTextColor="#282323"
+                labelColor="#FFFAF2"
+                width={220}
+                height={160}
+                radius={16}
+                spread={180}
+                lift={30}
+                tilt={7}
+                flapAngle={34}
+                restAngle={14}
+                openDuration={520}
+                stagger={50}
+                bounce={0.32}
+              />
+            </div>
+          </div>
         </div>
-        <p className="mt-4 text-center text-[12px] text-ink-muted">Hover the folder to open the notes.</p>
       </section>
 
       {/* —— VALUE CARD —— */}
@@ -221,26 +274,6 @@ export function LandingPage() {
                 <p className="mt-2 text-[14px] text-ink-muted">{p.body}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* —— QUOTE —— */}
-      <section className="mx-auto grid max-w-[var(--maxw)] items-center gap-10 px-4 py-24 sm:px-6 lg:grid-cols-[1.1fr_0.9fr]">
-        <div>
-          <span className="font-display text-6xl leading-none text-primary/40" aria-hidden>
-            “
-          </span>
-          <blockquote className="mt-2 font-display text-[clamp(24px,3vw,34px)] font-medium leading-snug text-ink">
-            A different way of communicating is never a lack of ability.
-          </blockquote>
-          <p className="mt-6 text-[14px] text-ink-muted">— Includio product principle</p>
-        </div>
-        <div className="aspect-[3/4] overflow-hidden rounded-lg border border-border bg-gradient-to-b from-accent-soft via-brand-cream to-surface-muted shadow-[var(--shadow-2)]">
-          <div className="flex h-full flex-col justify-end p-6">
-            <BrandLogo to={null} compact className="mb-4 opacity-80" />
-            <p className="font-brand text-sm font-semibold">Inclusive by design</p>
-            <p className="text-[13px] text-ink-muted">No emotion scoring. No ranking. No diagnosis required.</p>
           </div>
         </div>
       </section>

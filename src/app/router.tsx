@@ -40,11 +40,12 @@ export function AppRouter() {
       </Route>
 
       <Route path="/candidate/activate" element={<CandidateActivatePage />} />
+      {/* Full-screen meeting room — outside shell so fixed layout is not clipped */}
+      <Route path="/candidate/practice/session" element={<PracticeSessionPage />} />
 
       <Route path="/candidate" element={<CandidateShell />}>
         <Route path="dashboard" element={<CandidateDashboardPage />} />
         <Route path="practice/setup" element={<PracticeSetupPage />} />
-        <Route path="practice/session" element={<PracticeSessionPage />} />
         <Route path="interview/check" element={<DeviceCheckPage />} />
         <Route path="interview/live" element={<LiveInterviewPage />} />
         <Route path="interview/complete" element={<InterviewCompletePage />} />
